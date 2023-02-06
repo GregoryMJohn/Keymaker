@@ -46,7 +46,7 @@ def pass_phrase(num_words):
 
     #For each letter, randomly select a word starting with that letter from the corresponding JSON file
     for letter in kLetters:
-        fname = letter + ".json"
+        fname = "./data/"+ letter + ".json"
         fh = open(fname)
         wordlist = json.load(fh)
         word = random.choice(list(wordlist.keys()))
