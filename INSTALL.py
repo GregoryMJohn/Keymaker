@@ -9,8 +9,14 @@ installed_packages = [r.decode().split('==')[0] for r in reqs.split()]
 
 for pkg in ['alive_progress','str2bool']:
 	if not pkg in installed_packages:
-		os.system(f'python3 -m pip install {pkg}')
+		cmd = subprocess.Popen('yes', stdout=subprocess.PIPE)
+		subprocess.run(f'python3 -m pip install {pkg}',stdin=cmd.stdout)
+		cmd.wait()
 
-os.system("git clone https://github.com/nightblade9/simple-english-dictionary.git")
-os.system("mv ./simple-english-dictionary/data/ .") 
-os.system("sudo rm -R simple-english-dictionary/")
+subprocess.run("git clone https://github.com/nightblade9/simple-english-dictionary.git")
+subprocess.run("mv ./simple-english-dictionary/data/ .") 
+subprocess.run("sudo rm -R simple-english-dictionary/")
+subprocess.run('chmod 755 *.py')
+tee = subprocess.Popen('pwd',stdout=subprocess.PIPE)
+subprocess.run('sudo tee -a ~/.bashrc', stdin=tee.stdout)
+tee.wait()
